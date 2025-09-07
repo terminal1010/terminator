@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Hacker Style Website</title>
+
+  <style>
+
+    * {
+
+      margin: 0;
+
+      padding: 0;
+
+      box-sizing: border-box;
+
+      font-family: 'Courier New', monospace;
+
+    }
+
+    body {
+
+      background: black;
+
+      color: #00ff00;
+
+      overflow-x: hidden;
+
+    }
+
+    /* Matrix Background */
+
+    canvas {
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      z-index: -1;
+
+    }
+
+    /* Glitch Text Effect */
+
+    .glitch {
+
+      font-size: 60px;
+
+      font-weight: bold;
+
+      text-align: center;
+
+      margin-top: 150px;
+
+      position: relative;
+
+      color: #00ff00;
+
+      animation: glitch 1s infinite;
+
+    }
+
+    @keyframes glitch {
+
+      0% { text-shadow: 2px 2px #ff0000, -2px -2px #0000ff; }
+
+      20% { text-shadow: -2px -2px #ff0000, 2px 2px #0000ff; }
+
+      40% { text-shadow: 2px -2px #ff0000, -2px 2px #0000ff; }
+
+      60% { text-shadow: -2px 2px #ff0000, 2px -2px #0000ff; }
+
+      80% { text-shadow: 2px 2px #ff0000, -2px -2px #0000ff; }
+
+      100% { text-shadow: none; }
+
+    }
+
+    /* Navigation */
+
+    nav {
+
+      display: flex;
+
+      justify-content: center;
+
+      background: rgba(0, 0, 0, 0.8);
+
+      padding: 15px;
+
+      border-bottom: 1px solid #00ff00;
+
+    }
+
+    nav a {
+
+      color: #00ff00;
+
+      text-decoration: none;
+
+      margin: 0 15px;
+
+      transition: 0.3s;
+
+    }
+
+    nav a:hover {
+
+      color: #ff0000;
+
+    }
+
+    /* Content */
+
+    section {
+
+      padding: 50px;
+
+      text-align: center;
+
+    }
+
+    .btn {
+
+      padding: 12px 24px;
+
+      background: #00ff00;
+
+      color: black;
+
+      border: none;
+
+      border-radius: 5px;
+
+      cursor: pointer;
+
+      font-weight: bold;
+
+      margin-top: 20px;
+
+      transition: 0.3s;
+
+    }
+
+    .btn:hover {
+
+      background: #ff0000;
+
+      color: white;
+
+    }
+
+    /* Terminal Typing */
+
+    .terminal {
+
+      background: rgba(0, 0, 0, 0.8);
+
+      border: 1px solid #00ff00;
+
+      padding: 20px;
+
+      margin: 40px auto;
+
+      width: 80%;
+
+      max-width: 700px;
+
+      height: 200px;
+
+      overflow: hidden;
+
+      text-align: left;
+
+      box-shadow: 0 0 15px #00ff00;
+
+    }
+
+    .line {
+
+      margin: 5px 0;
+
+      white-space: pre;
+
+    }
+
+    /* Footer */
+
+    footer {
+
+      background: #111;
+
+      text-align: center;
+
+      padding: 15px;
+
+      border-top: 1px solid #00ff00;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Matrix Background -->
+
+  <canvas id="matrix"></canvas>
+
+  <!-- Navbar -->
+
+  <nav>
+
+    <a href="#">Home</a>
+
+    <a href="#">Tools</a>
+
+    <a href="#">Projects</a>
+
+    <a href="#">Contact</a>
+
+  </nav>
+
+  <!-- Hacker Title -->
+
+  <h1 class="glitch">H4CK3R W3BS1T3</h1>
+
+  <!-- Content -->
+
+  <section>
+
+    <h2>Welcome to the Hacker Zone</h2>
+
+    <p>This is a modern hacker-style themed website with matrix background, glitch text & terminal typing effect.</p>
+
+    <button class="btn">Enter the System</button>
+
+  </section>
+
+  <!-- Terminal Typing Effect -->
+
+  <div class="terminal" id="terminal"></div>
+
+  <!-- Footer -->
+
+  <footer>
+
+    <p>&copy; 2025 Lewis. All Rights Reserved.</p>
+
+  </footer>
+
+  <!-- Scripts -->
+
+  <script>
+
+    // Matrix Background
+
+    const canvas = document.getElementById("matrix");
+
+    const ctx = canvas.getContext("2d");
+
+    canvas.height = window.innerHeight;
+
+    canvas.width = window.innerWidth;
+
+    const letters = "01";
+
+    const fontSize = 14;
+
+    const columns = canvas.width / fontSize;
+
+    let drops = [];
+
+    for (let x = 0; x < columns; x++) drops[x] = 1;
+
+    function draw() {
+
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#00ff00";
+
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+
+        const text = letters[Math.floor(Math.random() * letters.length)];
+
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+
+          drops[i] = 0;
+
+        }
+
+        drops[i]++;
+
+      }
+
+    }
+
+    setInterval(draw, 35);
+
+    // Terminal Typing Effect
+
+    const terminal = document.getElementById("terminal");
+
+    const lines = [
+
+      "Initializing system...",
+
+      "Connecting to server...",
+
+      "Bypassing firewall...",
+
+      "Access Granted ✅",
+
+      "Downloading data...",
+
+      "System Breached ⚡"
+
+    ];
+
+    let lineIndex = 0;
+
+    let charIndex = 0;
+
+    let currentLine = "";
+
+    function typeEffect() {
+
+      if (lineIndex < lines.length) {
+
+        if (charIndex < lines[lineIndex].length) {
+
+          currentLine += lines[lineIndex].charAt(charIndex);
+
+          terminal.innerHTML = terminal.innerHTML.replace(/<span class="cursor">█<\/span>/, "") + currentLine + '<span class="cursor">█</span>';
+
+          charIndex++;
+
+          setTimeout(typeEffect, 70);
+
+        } else {
+
+          terminal.innerHTML = terminal.innerHTML.replace(/<span class="cursor">█<\/span>/, "") + currentLine + "\n";
+
+          currentLine = "";
+
+          charIndex = 0;
+
+          lineIndex++;
+
+          setTimeout(typeEffect, 500);
+
+        }
+
+      }
+
+    }
+
+    typeEffect();
+
+  </script>
+
+</body>
+
+</html>
